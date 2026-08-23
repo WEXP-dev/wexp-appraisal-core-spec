@@ -113,10 +113,15 @@ class TestLeastPrivilege(WorkflowTestCase):
                         msg=f"{reference} is not pinned to a 40-character commit SHA",
                     )
 
-    def test_publication_workflows_do_not_persist_git_credentials(self) -> None:
-        for name in (PREPARE_WORKFLOW, SUBMIT_WORKFLOW):
+    def test_no_workflow_persists_git_credentials(self) -> None:
+        # No workflow here pushes anything, so none of them needs the token left
+        # behind in .git/config. Counting rather than merely looking for the
+        # string keeps a second, unhardened checkout from slipping in beside a
+        # hardened one.
+        for name, text in self.texts.items():
             with self.subTest(workflow=name):
-                self.assertIn("persist-credentials: false", self.texts[name])
+                checkouts = text.count("uses: actions/checkout@")
+                self.assertEqual(text.count("persist-credentials: false"), checkouts)
 
 
 class TestWorkflowReader(unittest.TestCase):
