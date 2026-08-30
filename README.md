@@ -6,9 +6,9 @@ explicit evidence and observation boundaries.
 
 Logs, traces, approvals, tool-call records, and attestations provide different
 kinds of evidence. WEXP distinguishes where an action was observed, how authentic
-the resulting record is, and what execution-related claim the available
-evidence can support. It grades evidentiary strength; it does not certify an
-action's correctness, safety, or alignment.
+the resulting record is, and which execution-related claims the available
+evidence supports. It does not assign a general trust score and does not certify
+an action's correctness, safety, authorization validity, or alignment.
 
 This repository contains intentionally published WEXP specification states. The
 specifications are authoritative; test vectors, implementations, runners, and
