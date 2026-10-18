@@ -234,7 +234,11 @@ def encode_multipart(request: SubmissionRequest, boundary: str) -> bytes:
             "Content-Type: application/xml\r\n\r\n"
         ).encode("utf-8")
     )
-    chunks.append(request.xml_path.read_bytes())
+    # Bind the actual bytes encoded into this request, not only an earlier hash.
+    xml_bytes = request.xml_path.read_bytes()
+    if len(xml_bytes) != request.xml_size or hashlib.sha256(xml_bytes).hexdigest() != request.xml_sha256:
+        raise SubmissionRequestError("submission XML changed after request preparation")
+    chunks.append(xml_bytes)
     chunks.append(b"\r\n")
     chunks.append(f"--{boundary}--\r\n".encode("ascii"))
     return b"".join(chunks)
@@ -245,6 +249,8 @@ def blocking_reasons(request: SubmissionRequest, *, live: bool, environment: dic
 
     env = os.environ if environment is None else environment
     reasons: list[str] = []
+    if request.url != DATATRACKER_SUBMISSION_URL or request.method != "POST":
+        reasons.append("only the declared Datatracker endpoint and POST are allowed")
     if not live:
         reasons.append("live=False (dry-run is the default)")
     if env.get(LIVE_SWITCH_NAME) != LIVE_SWITCH_VALUE:
@@ -280,6 +286,12 @@ def submit_request(
     import urllib.error
     import urllib.request
 
+    class NoSubmissionRedirect(urllib.request.HTTPRedirectHandler):
+        def redirect_request(self, req, fp, code, msg, headers, newurl):
+            # A response from a redirect target is not the declared API's receipt.
+            # Do not forward or retry this submission at another location.
+            return None
+
     boundary = f"----wexp{uuid.uuid4().hex}"
     body = encode_multipart(request, boundary)
     http_request = urllib.request.Request(
@@ -293,7 +305,8 @@ def submit_request(
         },
     )
     try:
-        with urllib.request.urlopen(http_request, timeout=timeout) as response:
+        opener = urllib.request.build_opener(NoSubmissionRedirect())
+        with opener.open(http_request, timeout=timeout) as response:
             payload = response.read().decode("utf-8", errors="replace")
             return SubmissionResponse(response.status, _decode(payload))
     except urllib.error.HTTPError as exc:

@@ -46,12 +46,9 @@ class TestNoAccidentalSubmission(WorkflowTestCase):
     def test_submit_workflow_is_manual_dispatch_only(self) -> None:
         self.assertEqual(reader.triggers(self.texts[SUBMIT_WORKFLOW]), ["workflow_dispatch"])
 
-    def test_prepare_workflow_never_runs_on_branches_or_pull_requests(self) -> None:
+    def test_legacy_rehearsal_is_manual_only(self) -> None:
         text = self.texts[PREPARE_WORKFLOW]
-        self.assertEqual(sorted(reader.triggers(text)), ["push", "workflow_dispatch"])
-        push_block = "\n".join(reader.top_level_block(text, "on"))
-        self.assertIn("tags:", push_block)
-        self.assertNotIn("branches:", push_block)
+        self.assertEqual(reader.triggers(text), ["workflow_dispatch"])
 
     def test_no_workflow_uses_pull_request_target(self) -> None:
         for name, text in self.texts.items():
@@ -66,28 +63,35 @@ class TestNoAccidentalSubmission(WorkflowTestCase):
                 self.assertNotIn("release:", "\n".join(reader.top_level_block(text, "on")))
 
 
-class TestSubmitWorkflowIsHardDisabled(WorkflowTestCase):
+class TestHostedTransportIsPreviewOnly(WorkflowTestCase):
     def setUp(self) -> None:
         super().setUp()
         self.text = self.texts[SUBMIT_WORKFLOW]
 
-    def test_it_requires_an_unset_repository_variable(self) -> None:
-        self.assertIn("vars.WEXP_PUBLICATION_ENABLED", self.text)
-        self.assertIn('!= "true"', self.text)
+    def test_no_variable_can_enable_live_submission(self) -> None:
+        self.assertNotIn("--live", self.text)
+        self.assertNotIn("WEXP_DATATRACKER_SUBMIT", self.text)
+        self.assertNotIn("vars.WEXP_PUBLICATION_ENABLED", self.text)
 
     def test_it_refuses_to_run_outside_the_canonical_repository(self) -> None:
-        self.assertIn('!= "WEXP-dev/wexp-spec"', self.text)
+        self.assertIn("github.repository == 'WEXP-dev/wexp-spec'", self.text)
+        self.assertIn("github.ref == 'refs/heads/main'", self.text)
 
-    def test_it_requires_a_protected_environment(self) -> None:
-        self.assertIn("environment: ietf-publication", self.text)
+    def test_it_never_builds_or_installs_a_rendering_toolchain(self) -> None:
+        for command in ("prepare_publication.py", "provision_toolchain.py", "xml2rfc", "idnits", "setup-node"):
+            self.assertNotIn(command, self.text)
 
-    def test_it_requires_typed_confirmation_and_an_expected_digest(self) -> None:
-        for required_input in ("confirm_identity", "expected_xml_sha256", "identity", "ref"):
+    def test_it_binds_the_bundle_and_both_external_records(self) -> None:
+        for required_input in ("expected_manifest_sha256", "expected_decision_sha256",
+                               "expected_review_sha256", "identity", "bundle_commit"):
             with self.subTest(input=required_input):
                 self.assertIn(f"{required_input}:", self.text)
 
-    def test_the_submit_job_depends_on_the_gate_job(self) -> None:
-        self.assertIn("needs: gate", self.text)
+    def test_data_checkout_is_separate_from_tool_code(self) -> None:
+        self.assertIn("ref: ${{ github.sha }}", self.text)
+        self.assertIn("path: frozen-input", self.text)
+        self.assertIn('sys.path.insert(0, "scripts")', self.text)
+        self.assertIn('re.fullmatch(r"[0-9a-f]{40}"', self.text)
 
 
 class TestLeastPrivilege(WorkflowTestCase):

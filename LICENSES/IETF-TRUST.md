@@ -22,3 +22,7 @@ Consult the authoritative sources rather than a copied legal text:
 This notice explains how IETF legal terms apply to material in this repository.
 It is not legal advice and does not replace the notices in an individual IETF
 document.
+
+Separately authored repository tooling has an explicit, limited BSD-3-Clause
+grant: see [the license map](../LICENSE-MAP.md) and [LICENSE-CODE](../LICENSE-CODE).
+That grant does not change the conditions of IETF documents or third-party code.

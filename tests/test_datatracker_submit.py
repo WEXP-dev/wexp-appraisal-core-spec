@@ -10,6 +10,7 @@ from __future__ import annotations
 import sys
 import tempfile
 import unittest
+from unittest import mock
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -93,6 +94,12 @@ class TestPrepareRequest(ClientTestCase):
         with self.assertRaises(dts.SubmissionRequestError):
             dts.encode_multipart(self.request(), "bad\r\nboundary")
 
+    def test_changed_xml_is_rejected_at_multipart_encoding(self) -> None:
+        request = self.request()
+        self.xml.write_bytes(self.xml.read_bytes() + b"changed")
+        with self.assertRaises(dts.SubmissionRequestError):
+            dts.encode_multipart(request, "boundary123")
+
 
 class TestRedaction(ClientTestCase):
     def test_preview_redacts_the_submitter_address(self) -> None:
@@ -115,6 +122,21 @@ class TestRedaction(ClientTestCase):
 
 
 class TestSubmitGuards(ClientTestCase):
+    def test_mock_transport_uses_the_exact_api_without_redirects(self) -> None:
+        opener = mock.MagicMock()
+        opener.open.return_value.__enter__.return_value.status = 201
+        opener.open.return_value.__enter__.return_value.read.return_value = b'{"id":"123"}'
+        with mock.patch("urllib.request.build_opener", return_value=opener) as build:
+            response = dts.submit_request(self.request(), live=True,
+                environment={dts.LIVE_SWITCH_NAME: dts.LIVE_SWITCH_VALUE})
+        self.assertEqual(response.status_code, 201)
+        handler = build.call_args.args[0]
+        self.assertIsNone(handler.redirect_request(None, None, 307, "", {}, "https://example.invalid/"))
+        request = opener.open.call_args.args[0]
+        self.assertEqual(request.full_url, dts.DATATRACKER_SUBMISSION_URL)
+        self.assertEqual(request.get_method(), "POST")
+        self.assertIn(self.xml.read_bytes(), request.data)
+
     def test_dry_run_never_transmits_and_says_so(self) -> None:
         evidence = dts.dry_run(self.request(), environment={})
         self.assertEqual(evidence["result"], "SUBMISSION NOT PERFORMED")
@@ -197,7 +219,7 @@ class TestSubmitCallSites(unittest.TestCase):
             for path in workflows
             if dts.LIVE_SWITCH_NAME in path.read_text(encoding="utf-8")
         ]
-        self.assertEqual(armed, ["ietf-publication-submit.yml"])
+        self.assertEqual(armed, [])
 
 
 if __name__ == "__main__":

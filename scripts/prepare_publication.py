@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Phase A — PREPARE.
+"""Legacy tag-based preparation rehearsal; not the current freeze/approval path.
 
 Build a complete, self-describing publication bundle for one exact
 Internet-Draft revision and decide whether it is fit to submit. This phase is
@@ -7,16 +7,16 @@ safe to run repeatedly: it never submits, and it proves that it did not.
 
 Terminal result on stdout is exactly one of::
 
-    READY FOR IETF SUBMISSION
+    LEGACY CHECKS PASSED — CURRENT APPROVAL NOT EVALUATED
     NOT READY — <reason>
 
 and, unconditionally::
 
     SUBMISSION NOT PERFORMED
 
-Phase B (submit) consumes this bundle by identity and must not rebuild a
-different draft. The bundle therefore pins the exact XML digest, the guard
-verdict, the toolchain versions, and the request that Phase B would send.
+These BUNDLE-MANIFEST.json outputs are historical-format rehearsal evidence.
+Current submission accepts only the externally pinned MANIFEST.json contract
+described in publication/README.md. It never calls this script.
 """
 
 from __future__ import annotations
@@ -40,7 +40,7 @@ import publication_guard as guard  # noqa: E402
 ROOT = Path(__file__).resolve().parents[1]
 AUTHORIZATIONS = ROOT / "publication" / "authorizations"
 
-READY = "READY FOR IETF SUBMISSION"
+READY = "LEGACY CHECKS PASSED — CURRENT APPROVAL NOT EVALUATED"
 NOT_READY = "NOT READY"
 
 
@@ -271,8 +271,8 @@ def prepare(
     identity = str(authorization.get("artifact_identity") or "unknown-artifact")
     submission = authorization.get("submission") if isinstance(authorization.get("submission"), dict) else {}
 
-    if bundle_root.exists():
-        shutil.rmtree(bundle_root)
+    if bundle_root.exists() or bundle_root.is_symlink():
+        raise guard.GuardError("output exists; preserve it and choose a new rehearsal directory")
     submission_dir = bundle_root / "submission"
     rendered_dir = bundle_root / "rendered"
     evidence_dir = bundle_root / "evidence"
