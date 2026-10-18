@@ -1,7 +1,7 @@
-name: IETF publication PREPARE
+name: Legacy publication preparation rehearsal
 
-# Phase A only. This workflow builds a publication bundle and decides whether a
-# revision is fit to submit. It NEVER submits: it does not set the live switch,
+# Historical format only; not the current freeze/approval path. This workflow
+# NEVER submits: it does not set the live switch,
 # it has no access to any submission secret, and it asserts in-job that no
 # network submission was performed.
 
@@ -16,16 +16,13 @@ on:
         description: 'Publication tag ref to evaluate, e.g. refs/tags/draft-sergeev-wexp-core-01'
         required: true
         type: string
-  push:
-    tags:
-      - 'draft-*-[0-9][0-9]'
 
 permissions:
   contents: read
 
 jobs:
   prepare:
-    name: Prepare publication bundle
+    name: Rehearse legacy preparation without publication authority
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:

@@ -6,9 +6,9 @@ explicit evidence and observation boundaries.
 
 Logs, traces, approvals, tool-call records, and attestations provide different
 kinds of evidence. WEXP distinguishes where an action was observed, how authentic
-the resulting record is, and what execution-related claim the available
-evidence can support. It grades evidentiary strength; it does not certify an
-action's correctness, safety, or alignment.
+the resulting record is, and which execution-related claims the available
+evidence supports. It does not assign a general trust score and does not certify
+an action's correctness, safety, authorization validity, or alignment.
 
 This repository contains intentionally published WEXP specification states. The
 specifications are authoritative; test vectors, implementations, runners, and
@@ -46,6 +46,18 @@ was created, then imported here. The import and current integrity checks do not
 claim that it was published through WEXP. This repository's Git root does not
 replace or redefine the original IETF publication event.
 
+## Preparing a future revision
+
+Start with [the publication process](PUBLICATION-PROCESS.md). It separates
+development, a frozen review candidate, exact author approval, submission and
+verification of the official archive. Manual Datatracker upload of the approved
+XML is the default. GitHub CI and tags do not authorize a submission.
+
+[Publication tooling](publication/README.md) documents bundle verification and
+the optional API transport. The hosted submission workflow previews existing
+frozen inputs only; it cannot send a document. Candidate and review material
+remain separate from the frozen published revisions above.
+
 ## Known issues and representation
 
 [`known-issues/CORE-01-KNOWN-ISSUES-001.md`](known-issues/CORE-01-KNOWN-ISSUES-001.md)
@@ -71,7 +83,12 @@ reported through GitHub Private Vulnerability Reporting for this repository.
 - [Test vectors — `wexp-vectors`](https://github.com/WEXP-dev/wexp-vectors) —
   schemas and validation tools for implementation-independent WEXP test vectors.
 - [Reference implementation — `wexp-ref`](https://github.com/WEXP-dev/wexp-ref)
-  — the reference implementation and generic execution tools.
+  — reference tools with an explicitly documented partial Core surface.
+- [Interoperability records — `wexp-interop`](https://github.com/WEXP-dev/wexp-interop#experimental-records)
+  — versioned experiments, their results, evidence and reproduction limits.
+- [Experimental lab — `interop-test-lab`](https://github.com/WEXP-dev/interop-test-lab)
+  and [synthetic subject — `interop-test-subject`](https://github.com/WEXP-dev/interop-test-subject)
+  — Prototype-000 infrastructure and fixtures, not a conformance service.
 
 ## Integrity and provenance
 
@@ -98,3 +115,10 @@ Embedded notices remain authoritative for each artifact. See
 
 See [`CONTRIBUTING.md`](CONTRIBUTING.md) for repository contribution guidance.
 A pull request does not replace the applicable IETF submission process.
+
+## Repository tooling license
+
+The separately authored tooling listed in [LICENSE-MAP.md](LICENSE-MAP.md) is
+available under [BSD-3-Clause](LICENSE-CODE). Published specification artifacts
+retain their IETF notices and applicable terms; third-party dependencies retain
+their own licenses.

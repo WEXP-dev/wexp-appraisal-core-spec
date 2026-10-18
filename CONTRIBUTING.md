@@ -28,3 +28,10 @@ Before proposing a change:
 4. Do not claim IETF acceptance, interoperability, independent verification,
    or complete protocol correctness unless the claimed event or result was
    actually observed.
+
+## Tooling contributions
+
+The files listed in [LICENSE-MAP.md](LICENSE-MAP.md) use
+[BSD-3-Clause](LICENSE-CODE). Identify any imported code, preserve its existing
+notices, and update the map for newly covered or separately licensed files.
+The manuscript and IETF contribution rules above remain applicable.

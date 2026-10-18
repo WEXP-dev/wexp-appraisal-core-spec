@@ -195,7 +195,7 @@ class TestPositiveDryRunFixture(unittest.TestCase):
             triggering_ref=f"refs/tags/{self.identity}",
             bundle_root=self.root / "bundle",
         )
-        self.assertEqual(terminal, "READY FOR IETF SUBMISSION", msg=terminal)
+        self.assertEqual(terminal, prepare_module.READY, msg=terminal)
         self.assertEqual(manifest["guard"]["result"], "PASS")
         self.assertFalse(manifest["submission_performed"])
         self.assertEqual(manifest["dry_run"]["result"], "SUBMISSION NOT PERFORMED")

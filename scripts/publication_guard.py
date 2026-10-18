@@ -56,11 +56,15 @@ PUBLICATION_AUTHORIZATION = "publication_authorization"
 HISTORICAL_IMPORT = "historical_import_non_authorization"
 RECORD_KINDS = frozenset({PUBLICATION_AUTHORIZATION, HISTORICAL_IMPORT})
 
-#: The only public WEXP repositories. This is an allowlist on purpose: a
+#: Public WEXP repositories reviewed for this export profile. An unlisted name
+#: is not proof that a repository is private. This is an allowlist on purpose: a
 #: denylist would have to name the private repositories in a public file, which
 #: is exactly the disclosure this check exists to prevent, and would silently
 #: miss any repository created later.
-PUBLIC_WEXP_REPOSITORIES = frozenset({"wexp-spec", "wexp-vectors", "wexp-ref"})
+PUBLIC_WEXP_REPOSITORIES = frozenset({
+    ".github", "wexp-spec", "wexp-vectors", "wexp-ref", "wexp-interop",
+    "interop-test-lab", "interop-test-subject",
+})
 WEXP_REPOSITORY_RE = re.compile(r"WEXP-dev/(?P<slug>[A-Za-z0-9._-]+)")
 
 #: Absolute paths from a developer machine or a CI runner checkout.
@@ -281,7 +285,7 @@ def scan_bytes(data: bytes, label: str, *, forbid_candidate_ids: bool = True) ->
     for match in WEXP_REPOSITORY_RE.finditer(text):
         slug = match.group("slug")
         if slug not in PUBLIC_WEXP_REPOSITORIES:
-            findings.append(f"{label}: private marker reference to a non-public repository {slug!r}")
+            findings.append(f"{label}: private marker: repository reference outside public allowlist {slug!r}")
     for match in LOCAL_PATH_RE.finditer(text):
         findings.append(f"{label}: private marker local filesystem path {match.group(0)!r}")
     if forbid_candidate_ids:
