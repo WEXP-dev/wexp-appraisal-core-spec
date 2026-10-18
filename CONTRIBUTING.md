@@ -35,3 +35,9 @@ The files listed in [LICENSE-MAP.md](LICENSE-MAP.md) use
 [BSD-3-Clause](LICENSE-CODE). Identify any imported code, preserve its existing
 notices, and update the map for newly covered or separately licensed files.
 The manuscript and IETF contribution rules above remain applicable.
+
+## External reports and dispositions
+
+See [ISSUE-PROCESS.md](ISSUE-PROCESS.md) for response targets, review,
+public dispositions, closure, and the distinction between working changes
+and a posted I-D. Questions by issue or email are welcome without a patch.

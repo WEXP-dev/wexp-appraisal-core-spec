@@ -122,3 +122,9 @@ The separately authored tooling listed in [LICENSE-MAP.md](LICENSE-MAP.md) is
 available under [BSD-3-Clause](LICENSE-CODE). Published specification artifacts
 retain their IETF notices and applicable terms; third-party dependencies retain
 their own licenses.
+
+## External feedback
+
+[ISSUE-PROCESS.md](ISSUE-PROCESS.md) describes how reports receive a public
+disposition, how changes are checked, and when an issue can be closed.
+Questions and counterexamples are welcome; a patch is not required.

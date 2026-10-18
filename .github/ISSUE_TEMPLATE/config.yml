@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Report a vulnerability privately
+    url: https://github.com/WEXP-dev/wexp-spec/security/advisories/new
+    about: Follow SECURITY.md; do not disclose vulnerabilities in public issues.
+  - name: Published draft and author contact
+    url: https://datatracker.ietf.org/doc/draft-sergeev-wexp-core/01/
+    about: Find the author contact in the draft; email feedback is welcome.
