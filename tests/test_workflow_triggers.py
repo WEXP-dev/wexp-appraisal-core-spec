@@ -18,6 +18,7 @@ import workflow_reader as reader  # noqa: E402
 
 SUBMIT_WORKFLOW = "ietf-publication-submit.yml"
 PREPARE_WORKFLOW = "ietf-publication-prepare.yml"
+RELEASE_WORKFLOW = "ietf-submit-core-02.yml"
 
 #: Anything that could lead to a live submission.
 SUBMISSION_MARKERS = ("submit_publication.py", "WEXP_DATATRACKER_SUBMIT", "--live")
@@ -33,7 +34,7 @@ class WorkflowTestCase(unittest.TestCase):
 class TestNoAccidentalSubmission(WorkflowTestCase):
     def test_ordinary_push_and_pull_request_workflows_cannot_submit(self) -> None:
         for name, text in self.texts.items():
-            if name == SUBMIT_WORKFLOW:
+            if name in (SUBMIT_WORKFLOW, RELEASE_WORKFLOW):
                 continue
             with self.subTest(workflow=name):
                 for marker in SUBMISSION_MARKERS:
@@ -55,12 +56,15 @@ class TestNoAccidentalSubmission(WorkflowTestCase):
             with self.subTest(workflow=name):
                 self.assertNotIn("pull_request_target", text)
 
-    def test_no_workflow_is_triggered_by_a_release(self) -> None:
-        # A GitHub release is easy to create by accident and is the trigger the
-        # common community template uses. This repository deliberately does not.
+    def test_only_the_reviewed_revision_workflow_accepts_a_published_release(self) -> None:
         for name, text in self.texts.items():
             with self.subTest(workflow=name):
-                self.assertNotIn("release:", "\n".join(reader.top_level_block(text, "on")))
+                if name == RELEASE_WORKFLOW:
+                    self.assertEqual(reader.triggers(text), ["release"])
+                    self.assertIn("types: [published]", text)
+                    self.assertIn("github.event.release.tag_name == 'draft-sergeev-wexp-core-02'", text)
+                else:
+                    self.assertNotIn("release:", "\n".join(reader.top_level_block(text, "on")))
 
 
 class TestHostedTransportIsPreviewOnly(WorkflowTestCase):
@@ -98,7 +102,8 @@ class TestLeastPrivilege(WorkflowTestCase):
     def test_every_workflow_declares_read_only_top_level_permissions(self) -> None:
         for name, text in self.texts.items():
             with self.subTest(workflow=name):
-                self.assertEqual(reader.top_level_permissions(text), {"contents": "read"})
+                expected = {"contents": "read", "actions": "read", "checks": "read"} if name == RELEASE_WORKFLOW else {"contents": "read"}
+                self.assertEqual(reader.top_level_permissions(text), expected)
 
     def test_no_workflow_references_a_repository_secret(self) -> None:
         # The Datatracker submission interface takes no credential, so no

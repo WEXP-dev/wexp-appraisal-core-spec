@@ -203,23 +203,23 @@ class TestSubmitGuards(ClientTestCase):
 
 
 class TestSubmitCallSites(unittest.TestCase):
-    def test_only_phase_b_calls_submit_request(self) -> None:
+    def test_only_the_two_reviewed_transport_adapters_call_submit_request(self) -> None:
         callers = sorted(
             path.name
             for path in (support.REPO_ROOT / "scripts").glob("*.py")
             if "submit_request(" in path.read_text(encoding="utf-8")
             and path.name != "datatracker_submit.py"
         )
-        self.assertEqual(callers, ["submit_publication.py"])
+        self.assertEqual(callers, ["github_release_submit.py", "submit_publication.py"])
 
-    def test_no_workflow_arms_the_live_switch_outside_the_submit_workflow(self) -> None:
+    def test_only_the_revision_release_workflow_arms_the_live_switch(self) -> None:
         workflows = sorted((support.REPO_ROOT / ".github" / "workflows").glob("*.yml"))
         armed = [
             path.name
             for path in workflows
             if dts.LIVE_SWITCH_NAME in path.read_text(encoding="utf-8")
         ]
-        self.assertEqual(armed, [])
+        self.assertEqual(armed, ["ietf-submit-core-02.yml"])
 
 
 if __name__ == "__main__":

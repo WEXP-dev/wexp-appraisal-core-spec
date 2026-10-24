@@ -29,8 +29,8 @@ revision `02`.
 - [Public export record](publication/records/core-02-public-export.json)
 
 The three files retain their frozen bytes. Submission results and official
-archive comparisons are recorded separately; the final revision tag or release
-follows verification of the official posting. See the
+archive comparisons are recorded separately. A submission prerelease and its
+tag select the reviewed source; verified IETF posting is recorded afterward. See the
 [publication process](PUBLICATION-PROCESS.md).
 
 ## Latest verified IETF revision
@@ -68,11 +68,12 @@ replace or redefine the original IETF publication event.
 
 Start with [the publication process](PUBLICATION-PROCESS.md). It separates
 development, a frozen review candidate, exact author approval, submission and
-verification of the official archive. Manual Datatracker upload of the approved
-XML is the default. GitHub CI and tags do not authorize a submission.
+verification of the official archive. An explicitly published revision release
+triggers the [GitHub submission procedure](publication/GITHUB-SUBMISSION.md)
+for the unchanged approved XML. CI and a tag alone do not authorize submission.
 
 [Publication tooling](publication/README.md) documents bundle verification and
-the optional API transport. The hosted submission workflow previews existing
+the optional local API transport. The older hosted preview workflow previews existing
 frozen inputs only; it cannot send a document. Candidate and review material
 remain separate from the posted revisions and explicitly labeled public
 submission packages above.
