@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "artifact_identity": "draft-sergeev-wexp-core-02",
+  "document": "draft-sergeev-wexp-core",
+  "revision": "02",
+  "publication_status": "wexp_publication",
+  "freeze": {
+    "identity": "CORE-02-PUBLIC-EXPORT-001",
+    "date": "2026-10-24",
+    "xml_sha256": "de983051a1c6ea51ea9b7f965fe9eabf2d97af92ab2f074781bd44e3f99c8782",
+    "xml_bytes": 136043
+  },
+  "provenance": {
+    "status": "public_export_for_submission",
+    "wexp_publication_record": "publication/records/core-02-public-export.json",
+    "note": "The publication status describes this repository export of the frozen artifacts. It does not record an observed Datatracker posting. The XML, TXT and HTML are copied unchanged; no rendering or document-date change occurs during export."
+  },
+  "integrity_scope": "current_repository_bytes",
+  "artifacts": [
+    {
+      "path": "drafts/core/02/draft-sergeev-wexp-core-02.xml",
+      "media_type": "application/rfc+xml",
+      "role": "submission-xml",
+      "bytes": 136043,
+      "sha256": "de983051a1c6ea51ea9b7f965fe9eabf2d97af92ab2f074781bd44e3f99c8782",
+      "status": "frozen_public_export_artifact"
+    },
+    {
+      "path": "drafts/core/02/draft-sergeev-wexp-core-02.txt",
+      "media_type": "text/plain",
+      "role": "review-txt",
+      "bytes": 143854,
+      "sha256": "73f92a0d735acb4e77aa8ef907b2a695acf2b87073db0352459022398771da8b",
+      "status": "frozen_public_export_artifact"
+    },
+    {
+      "path": "drafts/core/02/draft-sergeev-wexp-core-02.html",
+      "media_type": "text/html",
+      "role": "review-html",
+      "bytes": 233394,
+      "sha256": "088d47f8de89d56f7c485244646691f7c1cfe5dcb2b26252d2a0e016aa1d75d1",
+      "status": "frozen_public_export_artifact"
+    }
+  ],
+  "rendering": {
+    "xml2rfc": "3.34.1",
+    "python": "3.12.14",
+    "note": "The TXT and HTML were rendered before this export and are preserved unchanged. The XML is the submission artifact; the IETF may render its own TXT and HTML."
+  },
+  "claims": [
+    "The listed repository files match the declared byte lengths and SHA-256 digests.",
+    "The export preserves the selected XML, TXT and HTML bytes."
+  ],
+  "non_claims": [
+    "This repository export is not evidence that the IETF has posted revision 02.",
+    "The manifest and repository CI do not establish semantic correctness, protocol conformance, IETF adoption or standardization."
+  ]
+}
