@@ -13,12 +13,12 @@ The IETF archive is authoritative for posted revisions. The XML/TXT under
    Its `MANIFEST.json` is pinned by a SHA-256 kept outside that directory.
 4. Record the author's actual decision for that digest and the intended
    actions/destinations. Review and decision records remain outside the bundle.
-5. Upload the saved approved XML through the
-   [Datatracker web tool](https://datatracker.ietf.org/submit/).
-   Do not rebuild, redate or normalize it at this step.
+5. Follow the [GitHub release submission procedure](GITHUB-SUBMISSION.md) to
+   submit the exact approved XML. Manual Datatracker upload remains an
+   alternative. Do not rebuild, redate or normalize the file at submission.
 6. Follow the actual confirmation state. Download the official XML/TXT,
-   record their identities and resolve differences. Only then create the final
-   revision tag/release when authorized.
+   record their identities and resolve differences. Then update the submission
+   release to record verified posting, without moving its source tag.
 
 A candidate tag, if useful, has a distinct name. An annotated signed tag can
 help identify an artifact; it is neither proof of author approval nor a
@@ -100,7 +100,15 @@ a confirmation email was delivered. The API requires author confirmation;
 the web tool may offer an authenticated author immediate posting. Follow the
 returned state, then verify the official archive separately.
 
-## Hosted automation remains unable to submit
+## Hosted release transport and separate preview
+
+The revision-specific `ietf-submit-core-02.yml` workflow uses the documented
+Datatracker API after an explicitly published release for Core -02. It checks
+current main, successful checks, exact bytes and earlier attempts, retains an
+attempt artifact before POST, and records the response and bounded status GETs.
+[The GitHub submission procedure](GITHUB-SUBMISSION.md) defines its invocation,
+retention limits and manual confirmation. Ordinary pushes and PRs cannot send.
+
 
 `ietf-publication-submit.yml` is an explicitly dispatched **preview only**.
 It reads public-authorized inputs from a full public commit SHA as data; it
@@ -110,10 +118,11 @@ cannot turn this workflow into a POST.
 
 Public input storage is optional. Do not disclose a private candidate or
 decision record merely to use this preview; use the local path instead.
-A future hosted sender needs a separately reviewed durable attempt store,
-canonical-repository/branch restrictions, actual environment protection and
-a specific author decision for submission. No YAML comment establishes those
-Settings. Current preparation and ordinary PR/push CI have no submission
+The release sender does not depend on an unverified repository environment or
+PAT. Its token has read-only repository, check and Actions access. Its recorded
+run history and 90-day attempt artifact bound the repeat-attempt checks; they
+are not a distributed exactly-once guarantee. Preserve them and archive the
+records durably. Current preparation and ordinary PR/push CI have no submission
 authority.
 
 ## Historical preparation and guards

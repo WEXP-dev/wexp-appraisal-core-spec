@@ -33,23 +33,35 @@ claim must be qualified. See [RFC 8874, Section 6](https://www.rfc-editor.org/rf
 
 ## Submission and verification
 
-Manual submission through the [Datatracker](https://datatracker.ietf.org/submit/)
-is the standard transport. Upload the approved XML file without rebuilding it.
-Follow the confirmation required by Datatracker; a successful upload or queued
-API response is not a verified publication. If an outcome is uncertain, check
-the existing submission before retrying.
+The selected GitHub route is a reviewed source commit, successful checks, and
+an explicitly published release for the exact draft revision. The revision's
+release workflow submits the existing approved XML through the documented
+[Datatracker API](https://datatracker.ietf.org/api/submission), without rebuilding
+or changing its date. See [the GitHub submission procedure](publication/GITHUB-SUBMISSION.md)
+for the release trigger, attempt records and confirmation steps. This follows
+the common IETF GitHub release workflow, with a small repository adapter to
+preserve the selected RFCXML bytes instead of rebuilding them.
+
+Manual upload of the same approved XML through the
+[Datatracker](https://datatracker.ietf.org/submit/) remains an alternative, but
+must not be used in parallel with an unresolved API attempt. Follow the actual
+confirmation state; an upload or queued API response is not verified posting.
 
 After posting, download the official XML/TXT and record their identities and
 comparison with the approved package. Explain any server-generated rendering
 differences. Preserve earlier observations if metadata APIs lag the archive.
-An authorized GitHub release then records the already posted revision, binds
-the source commit and official files, and verifies uploaded release assets.
+The submission release initially remains a prerelease and clearly says that
+posting is not yet verified. Its tag identifies the selected source; it does
+not establish IETF acceptance. After official archive verification, update the
+release's status and evidence without moving its tag or replacing frozen files.
 Existing revision tags and archived files are not overwritten.
 
-Ordinary PR/push checks have no submission authority. Any future automated
-transport requires a separately reviewed implementation and author decision;
-it must consume the already approved bytes and check their externally pinned
-manifest digest. It must not rebuild at send time.
+Ordinary PR/push checks have no submission authority. The revision-specific
+release workflow requires a prior author decision for the exact package and
+submission action. It checks the configured XML and manifest digests, current
+main commit, successful CI and retained earlier attempts. Publishing the
+release is the operator's explicit invocation of that authorized action.
+The older hosted preview workflow remains unable to submit.
 
 References: [submission instructions](https://datatracker.ietf.org/submit/tool-instructions/),
 [API contract](https://datatracker.ietf.org/api/submission),

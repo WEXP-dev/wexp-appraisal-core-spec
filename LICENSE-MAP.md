@@ -8,6 +8,7 @@ different file next to one of them does not extend the grant automatically.
 
 - `scripts/datatracker_submit.py`
 - `scripts/draft_bundle.py`
+- `scripts/github_release_submit.py`
 - `scripts/prepare_publication.py`
 - `scripts/provision_toolchain.py`
 - `scripts/publication_guard.py`
@@ -17,6 +18,7 @@ different file next to one of them does not extend the grant automatically.
 - `tests/support.py`
 - `tests/test_datatracker_submit.py`
 - `tests/test_draft_bundle.py`
+- `tests/test_github_release_submit.py`
 - `tests/test_prepare_publication.py`
 - `tests/test_publication_guard.py`
 - `tests/test_signature_guard.py`
@@ -27,6 +29,8 @@ different file next to one of them does not extend the grant automatically.
 - `tests/test_workflow_triggers.py`
 - `tests/workflow_reader.py`
 - `tools/refresh_toolchain_lock.py`
+- `.github/workflows/ietf-submit-core-02.yml`
+- `publication/submission/core-02.json`
 
 The grant also covers the repository-owned configuration in
 `tools/toolchain.json`, `tools/python-toolchain.lock`, `tools/node/package.json`,

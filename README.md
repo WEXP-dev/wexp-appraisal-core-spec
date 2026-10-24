@@ -10,15 +10,33 @@ the resulting record is, and which execution-related claims the available
 evidence supports. It does not assign a general trust score and does not certify
 an action's correctness, safety, authorization validity, or alignment.
 
-This repository contains intentionally published WEXP specification states. The
-specifications are authoritative; test vectors, implementations, runners, and
-CI do not define or override them. Pre-publication development is maintained
-separately and does not constitute a published specification state.
+This repository contains intentionally published WEXP specification states and
+explicitly labeled frozen exports prepared for submission. The specifications
+are authoritative; test vectors, implementations, runners, and CI do not define
+or override them. Pre-publication development is maintained separately. A public
+export does not by itself establish an IETF posting.
 
-## Published specification
+## Core -02 submission package
 
-The current specification state is `draft-sergeev-wexp-core-01`. It is an
-Internet-Draft, not an Internet Standard.
+`draft-sergeev-wexp-core-02` is a frozen public export prepared for Datatracker
+submission. This repository has not yet recorded an observed IETF posting of
+revision `02`.
+
+- [XML to submit unchanged](drafts/core/02/draft-sergeev-wexp-core-02.xml)
+- [Plain text](drafts/core/02/draft-sergeev-wexp-core-02.txt)
+- [HTML](drafts/core/02/draft-sergeev-wexp-core-02.html)
+- [Integrity and provenance manifest](manifests/core-02.json)
+- [Public export record](publication/records/core-02-public-export.json)
+
+The three files retain their frozen bytes. Submission results and official
+archive comparisons are recorded separately. A submission prerelease and its
+tag select the reviewed source; verified IETF posting is recorded afterward. See the
+[publication process](PUBLICATION-PROCESS.md).
+
+## Latest verified IETF revision
+
+The latest IETF posting verified in this repository is
+`draft-sergeev-wexp-core-01`. It is an Internet-Draft, not an Internet Standard.
 
 - [XML](drafts/core/01/draft-sergeev-wexp-core-01.xml) — the authoritative artifact
 - [Plain text](drafts/core/01/draft-sergeev-wexp-core-01.txt)
@@ -50,13 +68,15 @@ replace or redefine the original IETF publication event.
 
 Start with [the publication process](PUBLICATION-PROCESS.md). It separates
 development, a frozen review candidate, exact author approval, submission and
-verification of the official archive. Manual Datatracker upload of the approved
-XML is the default. GitHub CI and tags do not authorize a submission.
+verification of the official archive. An explicitly published revision release
+triggers the [GitHub submission procedure](publication/GITHUB-SUBMISSION.md)
+for the unchanged approved XML. CI and a tag alone do not authorize submission.
 
 [Publication tooling](publication/README.md) documents bundle verification and
-the optional API transport. The hosted submission workflow previews existing
+the optional local API transport. The older hosted preview workflow previews existing
 frozen inputs only; it cannot send a document. Candidate and review material
-remain separate from the frozen published revisions above.
+remain separate from the posted revisions and explicitly labeled public
+submission packages above.
 
 ## Known issues and representation
 

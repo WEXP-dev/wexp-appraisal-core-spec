@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "record_kind": "public_export",
+  "record_identity": "CORE-02-PUBLIC-EXPORT-001",
+  "artifact_identity": "draft-sergeev-wexp-core-02",
+  "date": "2026-10-24",
+  "state": "prepared_for_submission",
+  "authorization_scope": "Public repository export of the listed unchanged XML, TXT and HTML and Datatracker submission of the unchanged XML were authorized on 2026-10-24.",
+  "manifest": "manifests/core-02.json",
+  "artifacts": [
+    {
+      "path": "drafts/core/02/draft-sergeev-wexp-core-02.xml",
+      "bytes": 136043,
+      "sha256": "de983051a1c6ea51ea9b7f965fe9eabf2d97af92ab2f074781bd44e3f99c8782"
+    },
+    {
+      "path": "drafts/core/02/draft-sergeev-wexp-core-02.txt",
+      "bytes": 143854,
+      "sha256": "73f92a0d735acb4e77aa8ef907b2a695acf2b87073db0352459022398771da8b"
+    },
+    {
+      "path": "drafts/core/02/draft-sergeev-wexp-core-02.html",
+      "bytes": 233394,
+      "sha256": "088d47f8de89d56f7c485244646691f7c1cfe5dcb2b26252d2a0e016aa1d75d1"
+    }
+  ],
+  "transport_note": "This is a public export record, not a transport instruction. It neither enables a hosted sender nor records a submission outcome.",
+  "publication_note": "An observed Datatracker submission and official archive artifacts are recorded separately. The final revision tag or release follows verification of the official posting."
+}

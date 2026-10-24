@@ -1,0 +1,23 @@
+{
+  "schema": "wexp-github-submission-v1",
+  "repository": "WEXP-dev/wexp-spec",
+  "repository_id": 1331243525,
+  "identity": "draft-sergeev-wexp-core-02",
+  "submitter": "mikhailsergeev369@gmail.com",
+  "workflow_file": "ietf-submit-core-02.yml",
+  "job_name": "submit-core-02",
+  "required_checks": [
+    "draft-ci",
+    "verify"
+  ],
+  "xml": {
+    "path": "drafts/core/02/draft-sergeev-wexp-core-02.xml",
+    "bytes": 136043,
+    "sha256": "de983051a1c6ea51ea9b7f965fe9eabf2d97af92ab2f074781bd44e3f99c8782"
+  },
+  "manifest": {
+    "path": "manifests/core-02.json",
+    "bytes": 2401,
+    "sha256": "baa4551b69de3be10a0fc7d988ea37f95fd8dc92aa1be18b70541e90a540b77e"
+  }
+}
