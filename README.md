@@ -16,13 +16,13 @@ are authoritative; test vectors, implementations, runners, and CI do not define
 or override them. Pre-publication development is maintained separately. A public
 export does not by itself establish an IETF posting.
 
-## Core -02 submission package
+## Current published Core revision: -02
 
-`draft-sergeev-wexp-core-02` is a frozen public export prepared for Datatracker
-submission. This repository has not yet recorded an observed IETF posting of
-revision `02`.
+[`draft-sergeev-wexp-core-02`](https://datatracker.ietf.org/doc/draft-sergeev-wexp-core/02/) is published as an individual Internet-Draft. Its title is *WEXP Core: Witnessability Appraisal Semantics for Execution-Related Claims*. The document is dated 23 October 2026. Official XML and TXT were verified byte-for-byte against this repository on 25 October 2026. See [the posting verification](publication/records/core-02-ietf-posting.json).
 
-- [XML to submit unchanged](drafts/core/02/draft-sergeev-wexp-core-02.xml)
+The companion [WEXP Coverage -00](https://datatracker.ietf.org/doc/draft-sergeev-wexp-coverage/00/) is also published; its [source repository](https://github.com/WEXP-dev/wexp-coverage-spec) preserves its separate claim and evaluation semantics.
+
+- [Published XML source](drafts/core/02/draft-sergeev-wexp-core-02.xml)
 - [Plain text](drafts/core/02/draft-sergeev-wexp-core-02.txt)
 - [HTML](drafts/core/02/draft-sergeev-wexp-core-02.html)
 - [Integrity and provenance manifest](manifests/core-02.json)
@@ -30,13 +30,12 @@ revision `02`.
 
 The three files retain their frozen bytes. Submission results and official
 archive comparisons are recorded separately. A submission prerelease and its
-tag select the reviewed source; verified IETF posting is recorded afterward. See the
+tag select the reviewed source; verified IETF posting is recorded in the linked posting verification. See the
 [publication process](PUBLICATION-PROCESS.md).
 
-## Latest verified IETF revision
+## Previous Core revision: -01
 
-The latest IETF posting verified in this repository is
-`draft-sergeev-wexp-core-01`. It is an Internet-Draft, not an Internet Standard.
+The previous revision is `draft-sergeev-wexp-core-01`. It is an Internet-Draft, not an Internet Standard.
 
 - [XML](drafts/core/01/draft-sergeev-wexp-core-01.xml) — the authoritative artifact
 - [Plain text](drafts/core/01/draft-sergeev-wexp-core-01.txt)
