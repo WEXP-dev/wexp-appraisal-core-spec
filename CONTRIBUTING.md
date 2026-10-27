@@ -15,9 +15,11 @@ applicable IETF Trust Legal Provisions. A pull request does not replace the
 applicable IETF submission process or place Internet-Draft text solely under a
 repository software license.
 
-External developers should be able to implement and test WEXP using
-`wexp-spec` plus `wexp-vectors` without depending on `wexp-ref`. The reference
-implementation is optional and is not a conformance oracle.
+External developers should be able to implement and test the selected Core
+revision using `wexp-appraisal-core-spec` plus revision-matched `wexp-vectors`
+without depending on `wexp-ref`. The reference implementation is optional and
+is not a conformance oracle. A repository rename does not upgrade a corpus or
+implementation to a different specification revision.
 
 Before proposing a change:
 
