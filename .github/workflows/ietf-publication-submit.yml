@@ -49,7 +49,9 @@ permissions:
 
 jobs:
   preview:
-    if: github.repository == 'WEXP-dev/wexp-spec' && github.ref == 'refs/heads/main'
+    # Location may change; the canonical repository identity must not.
+    # This read-only preview remains manual-only and cannot submit.
+    if: github.repository_id == '1331243525' && (github.repository == 'WEXP-dev/wexp-spec' || github.repository == 'WEXP-dev/wexp-appraisal-core-spec') && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:

@@ -1,4 +1,4 @@
-# WEXP Specifications
+# WEXP Appraisal Core — Specifications and Publication Records
 
 WEXP (Witnessed Execution Protocol) is an IETF-oriented specification effort
 for evaluating support for claims about software and AI execution within
@@ -10,11 +10,16 @@ the resulting record is, and which execution-related claims the available
 evidence supports. It does not assign a general trust score and does not certify
 an action's correctness, safety, authorization validity, or alignment.
 
-This repository contains intentionally published WEXP specification states and
+This repository contains intentionally published WEXP Core specification states and
 explicitly labeled frozen exports prepared for submission. The specifications
 are authoritative; test vectors, implementations, runners, and CI do not define
 or override them. Pre-publication development is maintained separately. A public
 export does not by itself establish an IETF posting.
+
+WEXP Appraisal Core evaluates support for execution-related claims; it is not
+a general audit-policy or application-decision engine. WEXP Coverage is a
+separate specification, not an additional level of Core appraisal. The
+repository title does not rename any Internet-Draft or semantic version.
 
 ## Current published Core revision: -02
 
@@ -97,8 +102,8 @@ reported through GitHub Private Vulnerability Reporting for this repository.
 
 ## WEXP repositories
 
-- [Specifications — `wexp-spec`](https://github.com/WEXP-dev/wexp-spec) —
-  published WEXP specifications and their provenance.
+- [Appraisal Core specifications](./) —
+  published WEXP Core revisions and their provenance.
 - [Test vectors — `wexp-vectors`](https://github.com/WEXP-dev/wexp-vectors) —
   schemas and validation tools for implementation-independent WEXP test vectors.
 - [Reference implementation — `wexp-ref`](https://github.com/WEXP-dev/wexp-ref)
